@@ -1,21 +1,8 @@
 /// @title Huffpoint
 /// @notice SPDX-License-Identifier: MIT
 /// @author devtooligan <https://github.com/devtooligan>
-/// @notice equivalent to vm.breakpoint in Foundary
-/// TODO: LINK
-/// TODO: Usage=
+/// @notice equivalent to vm.breakpoint in Foundry https://book.getfoundry.sh/cheatcodes/breakpoint
 
-// usage
-// cd layout selector . str_offset . bool . str_len . str
-// exanoke
-// f7d39a8d
-// 0000000000000000000000000000000000000000000000000000000000000040
-// 0000000000000000000000000000000000000000000000000000000000000001
-// 0000000000000000000000000000000000000000000000000000000000000001
-// 6100000000000000000000000000000000000000000000000000000000000000
-// 00000000000000000000000000000000000000000000000000000000
-///
-//
 #define function breakpoint(string,bool) nonpayable returns ()
 #define constant VM = 0x7109709ECfa91a80626fF3989D68f67F5b1DD12D
 #define constant SEL_BREAKPOINT = 0xf7d39a8d00000000000000000000000000000000000000000000000000000000
@@ -38,7 +25,7 @@
     0x00            // [ret_len]
     0x00            // [ret_ptr, ret_len]
     0x84            // [arg_len, ret_ptr, ret_len]
-    <mem_ptr>        // [arg_ptr, arg_len, ret_ptr, ret_len]
+    <mem_ptr>       // [arg_ptr, arg_len, ret_ptr, ret_len]
     0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
     [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
     gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
@@ -59,14 +46,13 @@
     0x00            // [ret_len]
     0x00            // [ret_ptr, ret_len]
     0x84            // [arg_len, ret_ptr, ret_len]
-    <mem_ptr>        // [arg_ptr, arg_len, ret_ptr, ret_len]
+    <mem_ptr>       // [arg_ptr, arg_len, ret_ptr, ret_len]
     0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
     [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
     gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
     call            // [success]
     pop             // []
 }
-
 
 /// @notice Sets breakpoint("a", true)
 #define macro BREAKPOINTA(mem_ptr) = takes (0) returns (0) {
@@ -81,7 +67,7 @@
     0x00            // [ret_len]
     0x00            // [ret_ptr, ret_len]
     0x84            // [arg_len, ret_ptr, ret_len]
-    <mem_ptr>        // [arg_ptr, arg_len, ret_ptr, ret_len]
+    <mem_ptr>       // [arg_ptr, arg_len, ret_ptr, ret_len]
     0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
     [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
     gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
@@ -102,7 +88,7 @@
     0x00            // [ret_len]
     0x00            // [ret_ptr, ret_len]
     0x84            // [arg_len, ret_ptr, ret_len]
-    <mem_ptr>            // [arg_ptr, arg_len, ret_ptr, ret_len]
+    <mem_ptr>       // [arg_ptr, arg_len, ret_ptr, ret_len]
     0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
     [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
     gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
