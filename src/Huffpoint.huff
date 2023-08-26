@@ -1,0 +1,119 @@
+/// @title Huffpoint
+/// @notice SPDX-License-Identifier: MIT
+/// @author devtooligan <https://github.com/devtooligan>
+/// @notice equivalent to vm.breakpoint in Foundary
+/// TODO: LINK
+/// TODO: Usage=
+
+// usage
+// cd layout selector . str_offset . bool . str_len . str
+// exanoke
+// f7d39a8d
+// 0000000000000000000000000000000000000000000000000000000000000040
+// 0000000000000000000000000000000000000000000000000000000000000001
+// 0000000000000000000000000000000000000000000000000000000000000001
+// 6100000000000000000000000000000000000000000000000000000000000000
+// 00000000000000000000000000000000000000000000000000000000
+///
+//
+#define function breakpoint(string,bool) nonpayable returns ()
+#define constant VM = 0x7109709ECfa91a80626fF3989D68f67F5b1DD12D
+#define constant SEL_BREAKPOINT = 0xf7d39a8d00000000000000000000000000000000000000000000000000000000
+#define constant LETTER_a = 0x6100000000000000000000000000000000000000000000000000000000000000
+#define constant LETTER_b = 0x6200000000000000000000000000000000000000000000000000000000000000
+#define constant LETTER_c = 0x6300000000000000000000000000000000000000000000000000000000000000
+#define constant LETTER_d = 0x6400000000000000000000000000000000000000000000000000000000000000
+
+
+/// @notice Sets breakpoint(<breakpoint_id>, <enabled>)
+#define macro SET_BREAKPOINT(mem_ptr, breakpoint_id, enabled) = takes (0) returns (0) {
+    // setup memory
+    [SEL_BREAKPOINT] 0x0 mstore
+    0x40 <mem_ptr> 0x04 add mstore
+    <enabled> <mem_ptr> 0x24 add mstore
+    0x01 <mem_ptr> 0x44 add mstore
+    <breakpoint_id> <mem_ptr> 0x64 add mstore
+
+    // setup stack for call
+    0x00            // [ret_len]
+    0x00            // [ret_ptr, ret_len]
+    0x84            // [arg_len, ret_ptr, ret_len]
+    <mem_ptr>        // [arg_ptr, arg_len, ret_ptr, ret_len]
+    0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
+    [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    call            // [success]
+    pop             // []
+}
+
+/// @notice Sets breakpoint(<breakpoint_id>, true)
+#define macro BREAKPOINT(mem_ptr, breakpoint_id) = takes (0) returns (0) {
+    // setup memory
+    [SEL_BREAKPOINT] 0x0 mstore
+    0x40 <mem_ptr> 0x04 add mstore
+    0x01 <mem_ptr> 0x24 add mstore
+    0x01 <mem_ptr> 0x44 add mstore
+    <breakpoint_id> <mem_ptr> 0x64 add mstore
+
+    // setup stack for call
+    0x00            // [ret_len]
+    0x00            // [ret_ptr, ret_len]
+    0x84            // [arg_len, ret_ptr, ret_len]
+    <mem_ptr>        // [arg_ptr, arg_len, ret_ptr, ret_len]
+    0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
+    [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    call            // [success]
+    pop             // []
+}
+
+
+/// @notice Sets breakpoint("a", true)
+#define macro BREAKPOINTA(mem_ptr) = takes (0) returns (0) {
+    // setup memory
+    [SEL_BREAKPOINT] 0x0 mstore
+    0x40 <mem_ptr> 0x04 add mstore
+    0x01 <mem_ptr> 0x24 add mstore
+    0x01 <mem_ptr> 0x44 add mstore
+    [LETTER_a] <mem_ptr> 0x64 add mstore
+
+    // setup stack for call
+    0x00            // [ret_len]
+    0x00            // [ret_ptr, ret_len]
+    0x84            // [arg_len, ret_ptr, ret_len]
+    <mem_ptr>        // [arg_ptr, arg_len, ret_ptr, ret_len]
+    0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
+    [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    call            // [success]
+    pop             // []
+}
+
+/// @notice Sets breakpoint("b", true)
+#define macro BREAKPOINTB(mem_ptr) = takes (0) returns (0) {
+    // setup memory
+    [SEL_BREAKPOINT] 0x0 mstore
+    0x40 <mem_ptr> 0x04 add mstore
+    0x01 <mem_ptr> 0x24 add mstore
+    0x01 <mem_ptr> 0x44 add mstore
+    [LETTER_b] <mem_ptr> 0x64 add mstore
+
+    // setup stack for call
+    0x00            // [ret_len]
+    0x00            // [ret_ptr, ret_len]
+    0x84            // [arg_len, ret_ptr, ret_len]
+    <mem_ptr>            // [arg_ptr, arg_len, ret_ptr, ret_len]
+    0x00            // [value, arg_ptr, arg_len, ret_ptr, ret_len]
+    [VM]            // [vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    gas             // [gas, vm, value, arg_ptr, arg_len, ret_ptr, ret_len]
+    call            // [success]
+    pop             // []
+}
+
+#define macro MAIN() = takes (0) returns (0) {
+    BREAKPOINTA(0x00)
+    BREAKPOINTB(0x00)
+    BREAKPOINT(0x00, LETTER_c)
+    BREAKPOINT(0x00, LETTER_d)
+    SET_BREAKPOINT(0x00, LETTER_c, 0x00)
+}
