@@ -1,0 +1,79 @@
+// RETURNS
+
+#define macro RETURN_69() = takes (0) returns (0) {
+    0x6969696969696969696969696969696969696969696969696969696969696969
+    0x00 mstore
+    0x20 0x0 return
+
+}
+
+#define macro RETURN_TOP_ONE() = takes (1) returns (0) {
+    0x00 mstore
+    0x20 0x0 return
+}
+
+#define macro RETURN_TOP_TWO() = takes (2) returns (0) {
+    0x00 mstore
+    0x20 mstore
+    0x40 0x0 return
+
+}
+#define macro RETURN_TOP_THREE() = takes (3) returns (0) {
+    0x00 mstore
+    0x20 mstore
+    0x40 mstore
+    0x60 0x0 return
+
+}
+
+#define macro RETURN_TOP_FOUR() = takes (4) returns (0) {
+    0x00 mstore
+    0x20 mstore
+    0x40 mstore
+    0x60 mstore
+    0x80 0x0 return
+
+}
+
+
+// REVERTS
+#define macro REVERT_TOP_ONE() = takes (2) returns (0) {
+    0x00 mstore
+    0x20 0x0 revert
+}
+
+#define macro REVERT_TOP_TWO() = takes (2) returns (0) {
+    0x00 mstore
+    0x20 mstore
+    0x40 0x0 revert
+
+}
+
+#define macro REVERT_TOP_THREE() = takes (3) returns (0) {
+    0x00 mstore
+    0x20 mstore
+    0x40 mstore
+    0x60 0x0 revert
+}
+
+#define macro REVERT_TOP_FOUR() = takes (4) returns (0) {
+    0x00 mstore
+    0x20 mstore
+    0x40 mstore
+    0x60 mstore
+    0x80 0x0 revert
+
+}
+
+#define macro REVERT_TOP_EIGHT() = takes (4) returns (0) {
+    0x00 mstore
+    0x20 mstore
+    0x40 mstore
+    0x60 mstore
+    0x80 mstore
+    0xa0 mstore
+    0xc0 mstore
+    0xe0 mstore
+    0x100 0x0 revert
+
+}
