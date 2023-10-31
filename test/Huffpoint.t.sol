@@ -15,7 +15,7 @@ contract HuffPointTest is Test {
     address public huffpoint;
 
     function setUp() public {
-        huffpoint = vm.compile("src/Huffpoint.huff").create({value: 0});
+        huffpoint = vm.compile("src/HuffpointTest.huff").create({value: 0});
     }
 
     function testHuffpoint() public {

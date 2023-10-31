@@ -1,0 +1,14 @@
+/// @title Huffpoint
+/// @notice SPDX-License-Identifier: MIT
+/// @author devtooligan <https://github.com/devtooligan>
+/// @notice equivalent to vm.breakpoint in Foundry https://book.getfoundry.sh/cheatcodes/breakpoint
+
+#include "./Huffpoint.huff"
+
+#define macro MAIN() = takes (0) returns (0) {
+    BREAKPOINTA(0x00)
+    BREAKPOINTB(0x00)
+    BREAKPOINT(0x00, LETTER_c)
+    BREAKPOINT(0x00, LETTER_d)
+    SET_BREAKPOINT(0x00, LETTER_c, 0x00)
+}
